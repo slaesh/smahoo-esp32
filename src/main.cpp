@@ -115,7 +115,7 @@ void setup() {
 
   // https://github.com/espressif/arduino-esp32/issues/595
   // make sure we don't get killed for our long running tasks
-  esp_task_wdt_init(20, false);
+  esp_task_wdt_init(20, true);
 
   mainLoggy.println("\nsetup");
   mainLoggy.println(version);

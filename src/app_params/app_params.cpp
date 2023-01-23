@@ -2,26 +2,29 @@
 
 #include "app_params.h"
 
+#include "app_params_defaults.h"
+
 static char cps_friendly_name[IIZI_PARAM_FRIENDLY_NAME_LEN + 1] = "";
 static char cps_use_led[IIZI_PARAM_USE_LED_LEN + 1]             = "yes";
 static char cps_input_toggles_output[IIZI_PARAM_INPUT_TOGGLES_OUTPUT_LEN + 1] =
     "yes";
 
-static char cps_mqtt_host[IIZI_PARAM_MQTT_HOST_LEN + 1] = "your.mqtt.broker";
-static char cps_mqtt_port[IIZI_PARAM_MQTT_PORT_LEN + 1] = "1883";
-static char cps_mqtt_user[IIZI_PARAM_MQTT_USER_LEN + 1] = "user";
-static char cps_mqtt_pass[IIZI_PARAM_MQTT_PASS_LEN + 1] = "pass";
+static char cps_mqtt_host[IIZI_PARAM_MQTT_HOST_LEN + 1] = MQTT_DEFAULT_HOST;
+static char cps_mqtt_port[IIZI_PARAM_MQTT_PORT_LEN + 1] = MQTT_DEFAULT_PORT;
+static char cps_mqtt_user[IIZI_PARAM_MQTT_USER_LEN + 1] = MQTT_DEFAULT_USER;
+static char cps_mqtt_pass[IIZI_PARAM_MQTT_PASS_LEN + 1] = MQTT_DEFAULT_PASS;
 
-// ota host url without protocol, HTTP is used!
-static char cps_ota_host[IIZI_PARAM_OTA_UPDATE_HOST_LEN + 1] =
-    "your.update.server";
-static char cps_ota_port[IIZI_PARAM_OTA_UPDATE_PORT_LEN + 1]    = "8080";
-static char cps_ota_path[IIZI_PARAM_OTA_UPDATE_PATH_LEN + 1]    = "/fw/update";
-static char cps_ota_chan[IIZI_PARAM_OTA_UPDATE_CHANNEL_LEN + 1] = "stable";
+static char cps_ota_host[IIZI_PARAM_OTA_UPDATE_HOST_LEN + 1] = OTA_DEFAULT_HOST;
+static char cps_ota_port[IIZI_PARAM_OTA_UPDATE_PORT_LEN + 1] = OTA_DEFAULT_PORT;
+static char cps_ota_path[IIZI_PARAM_OTA_UPDATE_PATH_LEN + 1] =
+    OTA_DEFAULT_URL_PATH;
+static char cps_ota_chan[IIZI_PARAM_OTA_UPDATE_CHANNEL_LEN + 1] =
+    OTA_DEFAULT_CHANNEL;
 
 static char cps_syslog_host[IIZI_PARAM_SYSLOG_HOST_LEN + 1] =
-    "your.syslog.server";
-static char cps_syslog_port[IIZI_PARAM_SYSLOG_PORT_LEN + 1] = "1234";
+    SYSLOG_DEFAULT_HOST;
+static char cps_syslog_port[IIZI_PARAM_SYSLOG_PORT_LEN + 1] =
+    SYSLOG_DEFAULT_PORT;
 
 t_iizi_app_parameter iizi_params[] = {
 

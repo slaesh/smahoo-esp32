@@ -60,7 +60,7 @@ void ota_update_loop() {
 
   String otaUpdateServer =
       iizi_get_parameter_value(IIZI_PARAM_OTA_UPDATE_HOST_KEY);
-  if (otaUpdateServer == "") {
+  if (otaUpdateServer.isEmpty()) {
     vTaskDelay(2000 / portTICK_PERIOD_MS);
     return;
   }

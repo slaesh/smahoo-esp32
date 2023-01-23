@@ -62,7 +62,7 @@ static void connectToMqtt() {
 
   parseMqttParameters();
 
-  if (mqttServer == "") {
+  if (mqttServer.isEmpty()) {
     return;
   }
 
@@ -71,7 +71,7 @@ static void connectToMqtt() {
   }
 
   String brokerUri = mqttUser;
-  if (brokerUri != "") {
+  if (!brokerUri.isEmpty()) {
     brokerUri += ":";
     brokerUri += mqttPass;
     brokerUri += "@";
