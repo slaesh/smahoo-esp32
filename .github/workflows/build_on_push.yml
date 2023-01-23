@@ -1,0 +1,70 @@
+name: build_on_push
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: getting tagged version
+        run: |
+          echo ${{ github.ref_name }}
+
+      - name: cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: cache .platformio
+        uses: actions/cache@v2
+        with:
+          path: ~/.platformio
+          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+
+      - name: set up Python
+        uses: actions/setup-python@v2
+
+      - name: install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install --upgrade platformio
+
+      - name: build
+        run: pio run -e release
+
+      - name: rename fw files
+        run: |
+          cp .pio/build/release/firmware.elf .pio/build/release_${{ github.ref_name }}.elf
+          cp .pio/build/release/firmware.bin .pio/build/release_${{ github.ref_name }}.bin
+
+      - name: building release-old
+        run: pio run -e release-old
+
+      - name: rename fw files
+        run: |
+          cp .pio/build/release-old/firmware.elf .pio/build/release-old_${{ github.ref_name }}.elf
+          cp .pio/build/release-old/firmware.bin .pio/build/release-old_${{ github.ref_name }}.bin
+
+      # https://trstringer.com/github-actions-create-release-upload-artifacts/
+      - name: create release
+        uses: ncipollo/release-action@v1
+        with:
+          # comma seperated list of files, supports wildcards (*.txt) too
+          artifacts: ".pio/build/*_${{ github.ref_name }}.*"
+          #        bodyFile: "body.md"
+          token: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: upload firmware files
+        run: |
+          curl -F file=@.pio/build/release_${{ github.ref_name }}.bin "http://${{ secrets.SMAHOO_OTA_DEFAULT_HOST }}:${{ secrets.SMAHOO_OTA_DEFAULT_PORT }}/fw/upload?version=${{ github.ref_name }}&hwhandle=inwall-relay&hwrevision=1&dev=true"
+          curl -F file=@.pio/build/release-old_${{ github.ref_name }}.bin "http://${{ secrets.SMAHOO_OTA_DEFAULT_HOST }}:${{ secrets.SMAHOO_OTA_DEFAULT_PORT }}/fw/upload?version=${{ github.ref_name }}&hwhandle=inwall-relay-old&hwrevision=1&dev=true"
