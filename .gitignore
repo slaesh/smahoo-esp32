@@ -34,3 +34,4 @@
 .vscode
 .pio
 .env
+*.log

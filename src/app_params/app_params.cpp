@@ -133,7 +133,7 @@ t_iizi_app_parameter iizi_params[] = {
     {
         .key        = IIZI_PARAM_SYSLOG_HOST_KEY,
         .label      = "syslog server",
-        .value      = cps_ota_host,
+        .value      = cps_syslog_host,
         .type       = "str",
         .max_length = IIZI_PARAM_SYSLOG_HOST_LEN,
     },
@@ -141,7 +141,7 @@ t_iizi_app_parameter iizi_params[] = {
     {
         .key        = IIZI_PARAM_SYSLOG_PORT_KEY,
         .label      = "syslog port",
-        .value      = cps_ota_port,
+        .value      = cps_syslog_port,
         .type       = "int",
         .max_length = IIZI_PARAM_SYSLOG_PORT_LEN,
     },
