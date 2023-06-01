@@ -11,7 +11,7 @@ bool sendSyslog(WiFiUDP &client, uint16_t pri, const char *procId,
   String syslogServer = iizi_get_parameter_value(IIZI_PARAM_SYSLOG_HOST_KEY);
   syslogServer.trim();
 
-  String syslogPort_s = iizi_get_parameter_value(IIZI_PARAM_MQTT_PORT_KEY);
+  String syslogPort_s = iizi_get_parameter_value(IIZI_PARAM_SYSLOG_PORT_KEY);
   syslogPort_s.trim();
   const uint16_t syslogPort = syslogPort_s.toInt();
 
