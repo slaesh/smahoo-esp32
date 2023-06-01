@@ -2,7 +2,7 @@
 #define __VERSION_H__
 
 #ifdef _MAIN_C_
-const char *version = "0.1.17";
+const char *version = "0.1.18";
 #else
 extern const char *version;
 #endif
